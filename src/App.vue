@@ -1,13 +1,17 @@
 <script>
-import Header from "./components/top-header.vue";
+/* import Header from "./components/top-header.vue";*/
+import Form from "./components/form.vue";
 
 export default {
-  components: { Header: Header }
+  components: {
+    /* Header: Header, */
+    Form: Form
+  }
 };
 </script>
 <template>
   <div>
-    <Header />
-    <h1>OLA</h1>
+    <!-- <Header /> -->
+    <Form />
   </div>
 </template>
