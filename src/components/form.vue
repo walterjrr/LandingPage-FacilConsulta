@@ -1,21 +1,16 @@
 <template>
   <div>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group
-        id="input-group-1"
-        label="Nome Completo*"
-        label-for="input-1"
-      >
+      <b-form-group label="Nome Completo*" label-for="input-1">
         <b-form-input
           id="input-1"
           v-model="form.name"
-          type="name"
           placeholder="Digite o nome completo"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="CPF*" label-for="input-2">
+      <b-form-group label="CPF*" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.cpf"
@@ -24,13 +19,8 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group
-        id="input-group-3"
-        label="Numero de Celular*"
-        label-for="input-3"
-      >
+      <b-form-group label="Numero de Celular*" label-for="input-3">
         <b-form-input
-          id="input-2"
           v-model="form.number"
           placeholder="(00) 0 0000-0000"
           required
@@ -38,25 +28,18 @@
       </b-form-group>
 
       <div style="display: flex">
-        <b-form-group
-          id="example-input-group-2"
-          label="Estado*"
-          label-for="example-input-2"
-        >
+        <b-form-group label="Estado*" label-for="example-input-2">
           <b-form-select
             id="example-input-2"
             v-model="form.state"
             name="example-input-2"
             :options="Estados"
             aria-describedby="input-2-live-feedback"
+            required
           ></b-form-select>
         </b-form-group>
 
-        <b-form-group
-          id="example-input-group-2"
-          label="Cidade*"
-          label-for="example-input-2"
-        >
+        <b-form-group label="Cidade*" label-for="example-input-2">
           <b-form-select
             id="example-input-2"
             v-model="form.city"
@@ -76,7 +59,20 @@
   </div>
 </template>
 <script>
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import axios from "axios";
+const estados = axios
+  .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados/")
+  .then(res => {
+    res.data;
+  });
 export default {
+  setup() {
+    return {
+      
+    }
+  },
   data() {
     return {
       form: {
@@ -86,21 +82,15 @@ export default {
         state: "",
         city: ""
       },
-      foods: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn"
-      ],
+      foods: [estados],
       Estados: [
         { text: "Select One", value: null },
         "Carrots",
         "Beans",
         "Tomatoes",
-        "Corn"
+        "Corn",
       ],
-      show: true
+      show: true,
     };
   },
   methods: {
@@ -111,16 +101,17 @@ export default {
     onReset(event) {
       event.preventDefault();
       // Reset our form values
-      this.form.email = "";
       this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
+      this.form.cpf = "";
+      this.form.number = "";
+      this.form.state = null;
+      this.form.city = null;
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
       });
-    }
-  }
+    },
+  },
 };
 </script>
