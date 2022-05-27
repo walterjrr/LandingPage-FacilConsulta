@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <div class="container">
     <b-form @submit.stop.prevent="onSubmit" @reset="onReset" v-if="show">
+      <h1>Sobre o profissional</h1>
+      <h2>Dados do profissional</h2>
       <b-form-group label="Nome Completo*" label-for="input-1">
         <b-form-input
           id="input-1"
@@ -8,6 +10,7 @@
           placeholder="Digite o nome completo"
           aria-describedby="input-1-live-feedback"
           :state="validateState('name')"
+          style="{input}"
         ></b-form-input>
 
         <b-form-invalid-feedback id="input-1-live-feedback"
@@ -83,6 +86,36 @@
     </b-card>
   </div>
 </template>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400&display=swap");
+
+
+* {
+  box-sizing: border-box;
+  font-family: "Confortaa";
+}
+body {
+  padding: 30px;
+  background: yellow;
+}
+.container {
+  background: white;
+  border-radius: 13px;
+}
+h1 {
+  padding: 20px 0;
+  color: #483698;
+}
+h2 {
+  font-family: "Open Sans";
+  padding-bottom: 10px;
+  font-size: 27px;
+}
+b-button {
+  color: orange;
+}
+</style>
 <script>
 import axios from "axios";
 import { validationMixin } from "vuelidate";
@@ -145,7 +178,7 @@ export default {
       },
       city: {
         required,
-      }
+      },
     },
   },
   created() {
@@ -156,12 +189,12 @@ export default {
       console.log("0");
       axios
         .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados/")
-        .then(res => {
+        .then((res) => {
           this.state = res.data;
           console.log("1");
           console.log(this.state);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
