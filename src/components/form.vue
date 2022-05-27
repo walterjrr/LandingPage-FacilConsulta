@@ -15,8 +15,7 @@
           ></b-form-input>
 
           <b-form-invalid-feedback id="input-1-live-feedback"
-            >This is a required field and must be at least 3
-            characters.</b-form-invalid-feedback
+            >Digite Seu nome Completo.</b-form-invalid-feedback
           >
         </b-form-group>
 
@@ -30,8 +29,7 @@
           ></b-form-input>
 
           <b-form-invalid-feedback id="input-1-live-feedback"
-            >This is a required field and must be at least 3
-            characters.</b-form-invalid-feedback
+            >Digite um Cpf Válido.</b-form-invalid-feedback
           >
         </b-form-group>
 
@@ -44,8 +42,7 @@
           ></b-form-input>
 
           <b-form-invalid-feedback id="input-1-live-feedback"
-            >This is a required field and must be at least 3
-            characters.</b-form-invalid-feedback
+            >Digite um numero de telefone Válido.</b-form-invalid-feedback
           >
         </b-form-group>
 
@@ -53,28 +50,28 @@
           <b-form-group label="Estado*" label-for="example-input-2">
             <b-form-select
               id="example-input-1"
-              v-model="form.state"
+              v-model="$v.form.state.$model"
               name="example-input-2"
               :options="state"
+              :state="validateState('state')"
               aria-describedby="input-2-live-feedback"
             ></b-form-select>
             <b-form-invalid-feedback id="input-2-live-feedback"
-              >This is a required field and must be at least 3
-              characters.</b-form-invalid-feedback
+              >Selecione o seu Estado.</b-form-invalid-feedback
             >
           </b-form-group>
 
           <b-form-group label="Cidade*" label-for="example-input-2">
             <b-form-select
               id="example-input-2"
-              v-model="form.city"
+              v-model="$v.form.city.$model"
               name="example-input-2"
               :options="city"
+              :state="validateState('state')"
               aria-describedby="input-2-live-feedback"
             ></b-form-select>
             <b-form-invalid-feedback id="input-2-live-feedback"
-              >This is a required field and must be at least 3
-              characters.</b-form-invalid-feedback
+              >Selecione sua Cidade.</b-form-invalid-feedback
             >
           </b-form-group>
         </div>
