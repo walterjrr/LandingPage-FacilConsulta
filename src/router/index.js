@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: "/atendimento",
-    name: "atendimento",
+    name: "PageAtendimento",
     component: PageAtendimento
   }
 ];

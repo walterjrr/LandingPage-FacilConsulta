@@ -11,7 +11,6 @@
             placeholder="Digite o nome completo"
             aria-describedby="input-1-live-feedback"
             :state="validateState('name')"
-            style="{input}"
           ></b-form-input>
 
           <b-form-invalid-feedback id="input-1-live-feedback"
@@ -95,7 +94,7 @@
 }
 body {
   padding: 100px;
-  background: #ffe766;
+  /* background: #ffe766; */
 }
 .container {
   background: white;
