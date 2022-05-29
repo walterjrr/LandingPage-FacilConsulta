@@ -51,12 +51,12 @@
             <b-form-select
               id="example-input-1"
               v-model="$v.form.state.$model"
-              name="example-input-2"
+              name="example-input-1"
               :options="state"
               :state="validateState('state')"
-              aria-describedby="input-2-live-feedback"
+              aria-describedby="input-3-live-feedback"
             ></b-form-select>
-            <b-form-invalid-feedback id="input-2-live-feedback"
+            <b-form-invalid-feedback id="input-3-live-feedback"
               >Selecione o seu Estado.</b-form-invalid-feedback
             >
           </b-form-group>
@@ -67,7 +67,7 @@
               v-model="$v.form.city.$model"
               name="example-input-2"
               :options="city"
-              :state="validateState('state')"
+              :state="validateState('city')"
               aria-describedby="input-2-live-feedback"
             ></b-form-select>
             <b-form-invalid-feedback id="input-2-live-feedback"
@@ -80,7 +80,7 @@
       </b-form>
     </div>
     <div class="img">
-      <img src="../assets/desktop-pagina-1.png" alt="imagem de dois medicos">
+      <img src="./assets/desktop-pagina-1.png" alt="imagem de dois medicos">
     </div>
   </div>
 </template>
@@ -125,7 +125,6 @@ h2 {
   width: 500px;
 }
 #example-input-1 {
-  color: aquamarine;
   width: 240px;
 }
 
@@ -235,6 +234,7 @@ export default {
         return;
       } else {
         alert(JSON.stringify(this.form));
+        this.$router.push({ path: "/PageAtendimento" });
       }
     },
   },
