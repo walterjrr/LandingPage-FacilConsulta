@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import PageHome from "../PageHome.vue";
 import PageAtendimento from "../PageAtendimento.vue";
+import PageConclusao from "../PageConclusao.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/atendimento",
     name: "PageAtendimento",
     component: PageAtendimento
+  },
+  {
+    path: "/revisao",
+    name: "PageConclusao",
+    component: PageConclusao
   }
 ];
 

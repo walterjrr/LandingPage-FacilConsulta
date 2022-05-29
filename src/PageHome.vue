@@ -128,7 +128,7 @@ h2 {
 }
 
 #example-input-2 {
-  width: 240px;
+  width: 250px;
 }
 
 button {
@@ -213,11 +213,12 @@ export default {
     SearchState() {
       console.log("0");
       axios
-        .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados/")
-        .then((res) => {
+        .get("http://api-teste-front-end-fc.herokuapp.com/estados")
+        .then(res => {
           this.state = res.data;
-          console.log("1");
-          console.log(this.state);
+          console.log(res);
+          console.log(res.data.nome);
+          console.log(this.state.nome);
         })
         .catch((error) => {
           console.log(error);
@@ -233,7 +234,7 @@ export default {
         return;
       } else {
         alert(JSON.stringify(this.form));
-        this.$router.push({ path: "/PageAtendimento" });
+        this.$router.push({ path: "/atendimento" });
       }
     },
   },

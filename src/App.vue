@@ -5,12 +5,11 @@
 </template>
 <script>
 export default {
-  name: "App",
+  name: "App"
 };
 </script>
 <style scoped>
-  #app {
+#app {
   box-sizing: border-box;
-  }
-
+}
 </style>
