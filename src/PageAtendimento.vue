@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="formContainer">
-      <b-form @submit.stop.prevent="onSubmit" v-if="show">
+      <b-form-checkbox @submit.stop.prevent="onSubmit" v-if="show">
         <h1>Sobre o atendimento</h1>
         <h2>Detalhes do atendimento</h2>
         <b-form-group
@@ -10,10 +10,10 @@
         >
           <b-form-select
             id="example-input-1"
-            v-model="$v.form.state.$model"
+            v-model="$v.form.speciality.$model"
             name="example-input-1"
-            :options="state"
-            :state="validateState('state')"
+            :options="speciality"
+            :state="validateState('speciality')"
             aria-describedby="input-3-live-feedback"
           ></b-form-select>
           <b-form-invalid-feedback id="input-3-live-feedback"
@@ -23,14 +23,15 @@
         <b-form-group label="Informe o preço da consulta*" label-for="input-1">
           <b-form-input
             id="input-1"
-            v-model="$v.form.name.$model"
+            v-model="$v.form.value.$model"
             placeholder="Valor"
+            :options="value"
             aria-describedby="input-1-live-feedback"
-            :state="validateState('name')"
+            :state="validateState('value')"
           ></b-form-input>
 
           <b-form-invalid-feedback id="input-1-live-feedback"
-            >Digite Seu nome Completo.</b-form-invalid-feedback
+            >O preço deve estar entre 30R$ e 350R$.</b-form-invalid-feedback
           >
         </b-form-group>
 
@@ -39,15 +40,12 @@
         <b-form-checkbox value="orange" class="checkbox"
           >Em dinheiro</b-form-checkbox
         >
-
         <b-form-checkbox value="orange" class="checkbox">Pix</b-form-checkbox>
-
         <b-form-checkbox value="orange" class="checkbox"
           >cartão de crédito</b-form-checkbox
         >
-
         <button type="submit" variant="primary">PROXIMO</button>
-      </b-form>
+      </b-form-checkbox>
     </div>
     <div class="img">
       <img src="./assets/desktop-pagina-2.png" alt="imagem de dois medicos" />
@@ -124,87 +122,33 @@ button {
 }
 </style>
 <script>
-import axios from "axios";
 import { validationMixin } from "vuelidate";
-import {
-  required,
-  minLength,
-  maxLength,
-  numeric,
-} from "vuelidate/lib/validators";
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
   data() {
     return {
       form: {
-        name: "",
-        cpf: "",
-        number: "",
-        state: "",
+        speciality: "",
         city: "",
       },
-      state: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn",
-      ],
-      city: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn",
-      ],
       show: true,
     };
   },
   validations: {
     form: {
-      name: {
+      value: {
         required,
-        minLength: minLength(3),
-        maxLength: maxLength(48),
+        minLength: minLength(30),
+        maxLength: maxLength(350),
       },
-      cpf: {
-        required,
-        numeric,
-        minLength: minLength(11),
-        maxLength: maxLength(11),
-      },
-      number: {
-        required,
-        numeric,
-        minLength: minLength(11),
-        maxLength: maxLength(11),
-      },
-      state: {
-        required,
-      },
-      city: {
+      speciality: {
         required,
       },
     },
-  },
-  created() {
-    this.SearchState();
   },
   methods: {
-    SearchState() {
-      console.log("0");
-      axios
-        .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados/")
-        .then((res) => {
-          this.state = res.data;
-          console.log("1");
-          console.log(this.state);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
@@ -215,7 +159,7 @@ export default {
         return;
       } else {
         alert(JSON.stringify(this.form));
-        this.$router.push({ path: "/PageAtendimento" });
+        this.$router.push({ path: "/revisao" });
       }
     },
   },

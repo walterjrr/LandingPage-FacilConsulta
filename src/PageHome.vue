@@ -52,9 +52,12 @@
               v-model="$v.form.state.$model"
               name="example-input-1"
               :options="state"
+              :key="state.id"
+              :v-for="state in state"
               :state="validateState('state')"
               aria-describedby="input-3-live-feedback"
-            ></b-form-select>
+              >{{ state.nome }}</b-form-select
+            >
             <b-form-invalid-feedback id="input-3-live-feedback"
               >Selecione o seu Estado.</b-form-invalid-feedback
             >
@@ -66,9 +69,12 @@
               v-model="$v.form.city.$model"
               name="example-input-2"
               :options="city"
+              :key="city.id"
+              :v-for="city in city"
               :state="validateState('city')"
               aria-describedby="input-2-live-feedback"
-            ></b-form-select>
+              >{{ city.nome }}</b-form-select
+            >
             <b-form-invalid-feedback id="input-2-live-feedback"
               >Selecione sua Cidade.</b-form-invalid-feedback
             >
@@ -79,7 +85,7 @@
       </b-form>
     </div>
     <div class="img">
-      <img src="./assets/desktop-pagina-1.png" alt="imagem de dois medicos">
+      <img src="./assets/desktop-pagina-1.png" alt="imagem de dois medicos" />
     </div>
   </div>
 </template>
@@ -159,23 +165,11 @@ export default {
         name: "",
         cpf: "",
         number: "",
-        state: "",
-        city: "",
+        state: [],
+        city: [],
       },
-      state: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn",
-      ],
-      city: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn",
-      ],
+      state: [],
+      city: [],
       show: true,
     };
   },
@@ -206,24 +200,18 @@ export default {
       },
     },
   },
-  created() {
-    this.SearchState();
+  mounted() {
+    axios
+      .get("https://api-teste-front-end-fc.herokuapp.com/estados")
+      .then((response) => (this.state = response.data));
+    axios
+      .get("https://api-teste-front-end-fc.herokuapp.com/cidades")
+      .then((response) => (this.city = response.data));
+    axios
+      .get("https://api-teste-front-end-fc.herokuapp.com/profissionais")
+      .then((response) => (this.cpf = response.data));
   },
   methods: {
-    SearchState() {
-      console.log("0");
-      axios
-        .get("http://api-teste-front-end-fc.herokuapp.com/estados")
-        .then(res => {
-          this.state = res.data;
-          console.log(res);
-          console.log(res.data.nome);
-          console.log(this.state.nome);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
